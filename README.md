@@ -46,16 +46,16 @@ AWS_SECRET_ACCESS_KEY= Optional
 SENTRY_DSN=your-sentry-dsn-here
 ```
 
-3. **Create S3 bucket**
-
-```bash
-aws --endpoint-url=http://localhost:4566 s3 mb s3://tasks-csv
-```
-
-4. **Start application**
+3. **Start application**
 
 ```bash
 docker compose up -d
+```
+
+4. **Create S3 bucket**
+
+```bash
+aws --endpoint-url=http://localhost:4566 s3 mb s3://tasks-csv
 ```
 
 Application will be available at:

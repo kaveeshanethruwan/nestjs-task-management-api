@@ -21,7 +21,7 @@ async function bootstrap() {
 
   // Swagger configuration
   const config = new DocumentBuilder()
-    .setTitle('NestJS API')
+    .setTitle('NestJS Task Management API')
     .setDescription('API documentation for NestJS application')
     .setVersion('1.0')
     .addBearerAuth(
