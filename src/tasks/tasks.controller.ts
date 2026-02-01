@@ -121,7 +121,6 @@ export class TasksController {
       taskId: Number(id),
       role: req.user.role,
     });
-    console.log('yash', req.user.role);
     return this.tasksService.remove(+id, req.user.id, req.user.role);
   }
 }
