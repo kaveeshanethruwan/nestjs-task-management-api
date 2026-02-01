@@ -18,6 +18,17 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
+  localstack:
+    image: localstack/localstack:latest
+    container_name: nestjs-localstack
+    restart: always
+    ports:
+      - '4566:4566'
+    environment:
+      - SERVICES=s3
+      - DEBUG=0
+    networks:
+      - nestjs-network
   app:
     build:
       context: .

@@ -1,0 +1,6 @@
+title,description,status
+Complete project documentation,Write comprehensive API documentation,pending
+Review pull requests,Review and merge pending PRs,in_progress
+Deploy to production,Deploy latest version to prod,pending
+Fix critical bug,Fix authentication bug reported by QA,in_progress
+Update dependencies,Update all npm packages to latest versions,done
