@@ -41,7 +41,6 @@ export class UserController {
     return this.userService.create(createUserDto, req.id);
   }
 
-  @Public()
   @Get()
   findAll(@Req() req: Request & { id?: string }) {
     this.logger.log('Fetching all users', { requestId: req.id });
@@ -79,7 +78,7 @@ export class UserController {
     return this.userService.update(+id, updateUserDto, req.id);
   }
 
-  @Roles(Role.ADMIN, Role.EDITOR, Role.USER)
+  @Roles(Role.ADMIN, Role.EDITOR)
   @Delete(':id')
   remove(@Param('id') id: string, @Req() req: Request & { id?: string }) {
     this.logger.log('Deleting user', {

@@ -21,7 +21,6 @@ import { UpdateTaskDto } from './dto/update-task.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { AppLoggerService } from 'src/common/services/logger.service';
 import { Request } from 'express';
-import { Roles } from 'src/auth/decorators/role.decorator';
 import { Role } from 'src/auth/enums/role.enum';
 
 interface MulterFile {
@@ -99,7 +98,6 @@ export class TasksController {
     return this.tasksService.findOne(+id, req.user.id);
   }
 
-  @Roles(Role.ADMIN, Role.EDITOR)
   @Patch(':id')
   update(
     @Param('id') id: string,
@@ -113,13 +111,17 @@ export class TasksController {
     return this.tasksService.update(+id, req.user.id, updateTaskDto);
   }
 
-  @Roles(Role.ADMIN, Role.EDITOR)
   @Delete(':id')
-  remove(@Param('id') id: string, @Req() req: { user: { id: number } }) {
+  remove(
+    @Param('id') id: string,
+    @Req() req: { user: { id: number; role: Role } },
+  ) {
     this.logger.log('Deleting task', {
       userId: req.user.id,
       taskId: Number(id),
+      role: req.user.role,
     });
-    return this.tasksService.remove(+id, req.user.id);
+    console.log('yash', req.user.role);
+    return this.tasksService.remove(+id, req.user.id, req.user.role);
   }
 }

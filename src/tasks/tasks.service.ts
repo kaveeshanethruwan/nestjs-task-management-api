@@ -6,6 +6,7 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskDto } from './dto/update-task.dto';
 import { PaginationDto } from './dto/pagination.dto';
 import { AppLoggerService } from 'src/common/services/logger.service';
+import { Role } from 'src/auth/enums/role.enum';
 
 @Injectable()
 export class TasksService {
@@ -105,12 +106,19 @@ export class TasksService {
     return this.findOne(id, userId);
   }
 
-  async remove(id: number, userId: number) {
+  async remove(id: number, userId: number, role: Role) {
     this.logger.log('Deleting task from database', {
       userId,
       taskId: id,
+      role,
     });
-    const task = await this.findOne(id, userId);
+
+    const whereCondition = role === Role.USER ? { id, userId } : { id };
+
+    const task = await this.taskRepo.findOne({
+      where: whereCondition,
+    });
+
     if (!task) {
       throw new NotFoundException('Task not found');
     }
