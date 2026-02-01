@@ -5,10 +5,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { TasksModule } from './tasks/tasks.module';
 import dbConfig from './config/db.config';
 import dbConfigProduction from './config/db.config.production';
 import { SentryGlobalFilter, SentryModule } from '@sentry/nestjs/setup';
 import { APP_FILTER } from '@nestjs/core';
+import { RequestIdMiddleware } from './common/middleware/request-id.middleware';
 import { AppLoggerService } from './common/services/logger.service';
 
 @Module({
@@ -25,6 +27,7 @@ import { AppLoggerService } from './common/services/logger.service';
     }),
     UserModule,
     AuthModule,
+    TasksModule,
   ],
   controllers: [AppController],
   providers: [
