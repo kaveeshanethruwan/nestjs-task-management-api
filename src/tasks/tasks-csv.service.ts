@@ -175,6 +175,18 @@ export class TasksCsvService {
       title: row.title,
       status: row.status,
     });
+
+    const response = await this.taskRepo.findOne({
+      where: { userId: userId, title: row.title.trim() },
+      select: ['id'],
+    });
+
+    console.log('response', response);
+
+    if (Object.keys(response || {}).length > 0) {
+      throw new Error('Task with the same title already exists');
+    }
+
     const task = this.taskRepo.create({
       title: row.title.trim(),
       description: row.description?.trim() || null,

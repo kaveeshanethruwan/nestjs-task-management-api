@@ -41,7 +41,11 @@ export class UserService {
       userId: savedUser.id,
     });
 
-    return savedUser;
+    console.log('password', savedUser);
+
+    const res = { firstName: savedUser.firstName, email: savedUser.email };
+
+    return res;
   }
 
   async findAll(requestId?: string) {
